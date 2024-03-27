@@ -1,6 +1,7 @@
 // (home) 처럼 소괄호 폴더로 router group생성 가능. url은 생성하지 않는다
 
-import Link from "next/link";
+import Movie from "../../components/movie";
+import styles from "../../styles/home.module.css";
 
 export const metadata = {
   title: "Home",
@@ -20,15 +21,11 @@ export default async function HomePage() {
   const movies = await getMovies();
   return (
     <>
-      <ul>
-        {movies.map((movie) => {
-          return (
-            <li key={movie.id}>
-              <Link href={`/movies/${movie.id}`}>{movie.title}</Link>
-            </li>
-          );
-        })}
-      </ul>
+      <div className={styles.container}>
+        {movies.map((movie) => (
+          <Movie key={movie.id} id={movie.id} poster_path={movie.poster_path} title={movie.title} />
+        ))}
+      </div>
     </>
   );
 }
